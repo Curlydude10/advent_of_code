@@ -35,16 +35,37 @@ int count_floor(char *input) {
   return (floor);
 }
 
+int first_basement(char *input) {
+  int floor = 0;
+  int i;
+
+  for (i = 0; i < strlen(input); i++) {
+    if (input[i] == '(') {
+      floor++;
+    } else if (input[i] == ')') {
+      floor--;
+    }
+
+    if (floor == -1) {
+      return i + 1;
+    }
+  }
+  return -1;
+}
+
 int main() {
   printf("Hello world!\n");
   char *input;
   int final_floor;
+  int basement_index;
 
   input = import_input("../input.txt");
 
   final_floor = count_floor(input);
+  basement_index = first_basement(input);
 
-  printf("The Final Floor Santa Lands on is: %i", final_floor);
+  printf("The Final Floor Santa Lands on is: %i\n", final_floor);
+  printf("The index of the basement is: %i", basement_index);
 
   return 0;
 }
